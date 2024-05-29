@@ -43,7 +43,7 @@ class SplashScreenActivity : ComponentActivity() {
                 startActivity(it)
             }
             finish()
-        }, 6000)
+        }, 3000)//time for loading the app
 
     }
 
