@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -35,7 +36,9 @@ class SplashScreenActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SplashScreen()
+            FOneCompanionTheme {
+                SplashScreen()
+            }
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -52,14 +55,14 @@ class SplashScreenActivity : ComponentActivity() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Background_color)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             Column(
                 modifier = Modifier
                     .align(Alignment.Center)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.f_one_companion_logo),
+                    painter = painterResource(id = R.drawable.f_one_companion_logo),//TODO : remplace by MaterialTheme.colorScheme
                     contentDescription = null,
                     modifier = Modifier
                         .size(215.dp),
@@ -72,9 +75,9 @@ class SplashScreenActivity : ComponentActivity() {
                         .height(2.dp)
                         .progressSemantics()
                         .clip(RoundedCornerShape(50)) // Adjust the corner radius as needed
-                        .background(color = Background_color)
+                        .background(color = Background_color)//TODO : remplace by MaterialTheme.colorScheme
                         .align(Alignment.CenterHorizontally),
-                    color = Primary_color
+                    color = Primary_color//TODO : remplace by MaterialTheme.colorScheme
                 )
             }
             Text(
