@@ -1,4 +1,4 @@
-package com.utbm.sy43.f_one_companion
+package com.utbm.sy43.f_one_companion.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 
-class MainActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
