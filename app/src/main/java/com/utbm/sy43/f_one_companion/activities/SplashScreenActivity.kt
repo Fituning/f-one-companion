@@ -75,9 +75,9 @@ class SplashScreenActivity : ComponentActivity() {
                         .height(2.dp)
                         .progressSemantics()
                         .clip(RoundedCornerShape(50)) // Adjust the corner radius as needed
-                        .background(color = Background_color)//TODO : remplace by MaterialTheme.colorScheme
+                        //.background(color = Background_color)//TODO : remplace by MaterialTheme.colorScheme
                         .align(Alignment.CenterHorizontally),
-                    color = Primary_color//TODO : remplace by MaterialTheme.colorScheme
+                    //color = Primary_color//TODO : remplace by MaterialTheme.colorScheme
                 )
             }
             Text(
