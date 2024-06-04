@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.utbm.sy43.f_one_companion"
-        minSdk = 33
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -63,6 +63,22 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.compose.material:material-icons-extended")
+
+    val lifecycle_version = "2.8.1"
+    val arch_version = "2.2.0"
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // ViewModel utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+    /*
+    val lifecycle_version = "2.4.0"
+    //implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")//implementation de Viewmodel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    */
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

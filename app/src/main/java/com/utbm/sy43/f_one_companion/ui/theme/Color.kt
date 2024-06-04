@@ -8,6 +8,7 @@ val Grey2_color = Color(0xFF49494F)
 val Grey3_color = Color(0xFFB5B5B8)
 val Black1_color = Color(0xFF000000)
 val Black2_color = Color(0xFF0C0C12)
+val White_color = Color( 0xFFFFFFFF)
 
 
 val primaryDark = Color(0xFFC12316) // La couleur principale pour le thème sombre (ancienne valeur : 0xFFFFB4A8)
@@ -27,12 +28,12 @@ val onErrorDark = Color(0xFF4E2500) // La couleur du texte/éléments sur la cou
 val errorContainerDark = Color(0xFFF58200) // La couleur du conteneur d'erreur dans le thème sombre
 val onErrorContainerDark = Color(0xFF250E00) // La couleur du texte/éléments sur le conteneur d'erreur
 val backgroundDark = Background_color // La couleur de fond pour le thème sombre
-val onBackgroundDark = Color(0xFFFADCD7) // La couleur du texte/éléments sur la couleur de fond
-val surfaceDark = Color(0xFF141314) // La couleur de surface pour le thème sombre
+val onBackgroundDark = White_color//Color(0xFFFADCD7) // La couleur du texte/éléments sur la couleur de fond
+val surfaceDark =  Black2_color//Color(0xFF141314) // La couleur de surface pour le thème sombre
 val onSurfaceDark = Color(0xFFE5E1E2) // La couleur du texte/éléments sur la couleur de surface
-val surfaceVariantDark = Color(0xFF47464B) // Variante de la couleur de surface pour le thème sombre
+val surfaceVariantDark = Grey1_color //Color(0xFF47464B) // Variante de la couleur de surface pour le thème sombre
 val onSurfaceVariantDark = Color(0xFFC8C5CB) // La couleur du texte/éléments sur la variante de la surface
-val outlineDark = Color(0xFF929095) // La couleur des contours pour le thème sombre
+val outlineDark = Grey2_color //Color(0xFF929095) // La couleur des contours pour le thème sombre
 val outlineVariantDark = Color(0xFF47464B) // Variante de la couleur des contours pour le thème sombre
 val scrimDark = Color(0xFF000000) // La couleur de la surbrillance ou de l'ombre pour le thème sombre
 val inverseSurfaceDark = Color(0xFFE5E1E2) // La couleur de la surface inversée pour le thème sombre
