@@ -5,18 +5,16 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,18 +23,47 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
-import java.util.Locale
 
 @Composable
 fun StandingsComponent(
     modifier : Modifier = Modifier
 ) {
+    CardWithBorder {
+        Text(
+            text = "Team Standings",
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.displayMedium,
+            modifier = Modifier
+                .padding(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 6.dp)
+                .fillMaxWidth()
+        )
+        Spacer(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.outline)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
 
+        Column (modifier = Modifier.padding( bottom = 4.dp )) {
+            //todo replace by values
+            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surface)
+            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surfaceVariant)
+            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surface)
+            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surfaceVariant)
+        }
+    }
+}
+
+
+
+@Composable
+fun CardWithBorder(
+    content: @Composable ColumnScope.() -> Unit
+){
     Box(
         contentAlignment = Alignment.BottomEnd,
         modifier = Modifier
@@ -47,46 +74,25 @@ fun StandingsComponent(
             .clip(MaterialTheme.shapes.medium)
             .background(color = MaterialTheme.colorScheme.surface)
     ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(start = 2.dp, top = 2.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(topStart = 12.dp)
-                    )
-                    .border(
-                        width = 2.dp,
-                        color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(topStart = 12.dp, bottomEnd = 6.dp),
-                    )
-            ) {
-                Text(
-                    text = "Team Standings",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.displayMedium,
-                    modifier = Modifier
-                        .padding(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 6.dp)
-                        .fillMaxWidth()
+        Column(
+            verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(start = 2.dp, top = 2.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(topStart = 12.dp)
                 )
-                Spacer(
-                    modifier = Modifier
-                        .background(color = MaterialTheme.colorScheme.outline)
-                        .fillMaxWidth()
-                        .height(1.dp)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(topStart = 12.dp, bottomEnd = 6.dp),
                 )
-
-                Column (modifier = Modifier.padding( bottom = 4.dp )) {
-                    //todo replace by values
-                    TeamLineInfo(bgColor = MaterialTheme.colorScheme.surface)
-                    TeamLineInfo(bgColor = MaterialTheme.colorScheme.surfaceVariant)
-                    TeamLineInfo(bgColor = MaterialTheme.colorScheme.surface)
-                    TeamLineInfo(bgColor = MaterialTheme.colorScheme.surfaceVariant)
-                }
-            }
+        ) {
+            content()
+        }
 
 
         Box(
@@ -181,7 +187,9 @@ fun TeamLineInfo(
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.width(48.dp).padding(end = 12.dp)
+                modifier = Modifier
+                    .width(48.dp)
+                    .padding(end = 12.dp)
             )
 
         }
@@ -249,7 +257,9 @@ fun DriverLineInfo(
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.width(48.dp).padding(end = 12.dp)
+                modifier = Modifier
+                    .width(48.dp)
+                    .padding(end = 12.dp)
             )
 
         }
