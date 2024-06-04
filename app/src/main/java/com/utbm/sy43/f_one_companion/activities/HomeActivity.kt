@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
 import com.utbm.sy43.f_one_companion.ui.components.StandingsComponent
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 
@@ -30,6 +31,7 @@ class HomeActivity : ComponentActivity() {
                             name = "Android",
                             modifier = Modifier.padding(innerPadding)
                         )
+                        ImageComponent()
                         StandingsComponent()
                     }
 
