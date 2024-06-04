@@ -84,8 +84,10 @@ fun TopAppBar(
                 .padding(horizontal = 12.dp)
         ) {
             IconButton(
-                onClick = { val intent = Intent(context, SplashScreenActivity::class.java)
-                    context.startActivity(intent) },
+                onClick = {
+                    val intent = Intent(context, SplashScreenActivity::class.java)
+                    context.startActivity(intent)
+                },
                 //modifier = Modifier . weight (1f)
             ) {
                 Icon(
@@ -102,7 +104,10 @@ fun TopAppBar(
             )
 
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    context.startActivity(intent)
+                },
                 //modifier = Modifier . weight (1f)
             ) {
                 Icon(
@@ -111,17 +116,18 @@ fun TopAppBar(
                 )
             }
         }
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(color = MaterialTheme.colorScheme.outline)
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(color = MaterialTheme.colorScheme.outline)
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun HomePreview() {
     FOneCompanionTheme {
         MainApp()
     }
