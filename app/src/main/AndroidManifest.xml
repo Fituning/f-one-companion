@@ -19,6 +19,11 @@
             android:theme="@style/Theme.FOneCompanion">
         </activity>
         <activity
+            android:name=".activities.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FOneCompanion">
+        </activity>
+        <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.FOneCompanion">
