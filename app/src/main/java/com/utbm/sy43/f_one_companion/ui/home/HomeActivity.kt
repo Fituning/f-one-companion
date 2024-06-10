@@ -1,4 +1,4 @@
-package com.utbm.sy43.f_one_companion.activities
+package com.utbm.sy43.f_one_companion.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -24,7 +24,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +35,8 @@ import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
 import com.utbm.sy43.f_one_companion.ui.components.StandingsComponent
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 import com.utbm.sy43.f_one_companion.R
+import com.utbm.sy43.f_one_companion.ui.login.LoginActivity
+import com.utbm.sy43.f_one_companion.ui.splash_screen.SplashScreenActivity
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

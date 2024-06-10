@@ -1,4 +1,4 @@
-package com.utbm.sy43.f_one_companion.activities
+package com.utbm.sy43.f_one_companion.ui.splash_screen
 
 import android.content.Intent
 import android.os.Bundle
@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.utbm.sy43.f_one_companion.ui.home.HomeActivity
 import com.utbm.sy43.f_one_companion.ui.theme.*
 
 

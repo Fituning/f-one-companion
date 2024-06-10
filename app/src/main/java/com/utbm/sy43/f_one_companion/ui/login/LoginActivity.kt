@@ -1,4 +1,4 @@
-package com.utbm.sy43.f_one_companion.activities
+package com.utbm.sy43.f_one_companion.ui.login
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

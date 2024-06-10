@@ -14,17 +14,17 @@
         >
 
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.FOneCompanion">
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.FOneCompanion">
         </activity>
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name=".ui.splash_screen.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.FOneCompanion">
             <intent-filter>
