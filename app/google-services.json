@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "761884063600",
+    "project_id": "f-one-b8e65",
+    "storage_bucket": "f-one-b8e65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761884063600:android:f25119f4bfd75199ef41b5",
+        "android_client_info": {
+          "package_name": "com.utbm.sy43.f_one_companion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsbqiOIkJDB_Ag0HKMn8Vn80krBOCfa_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
