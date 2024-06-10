@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.utbm.sy43.f_one_companion.NavGraph
 import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
+import com.utbm.sy43.f_one_companion.ui.home.MainApp
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 
 class LoginActivity : ComponentActivity() {
@@ -24,9 +26,10 @@ class LoginActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    Login()
+                    NavGraph()
                 }
             }
+
         }
     }
 }
@@ -47,6 +50,10 @@ fun Login() {
 @Composable
 fun LoginPreview() {
     FOneCompanionTheme {
-        Login()
+        Surface(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            NavGraph()
+        }
     }
 }
