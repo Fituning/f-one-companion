@@ -28,9 +28,9 @@ fun UserInfoScreen( homeViewModel: HomeViewModel, navController: NavController) 
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(text = "first name :"+ (homeViewModel.uiState.value.user?.firstName ?: ""))
-            Text(text = "last name :"+ (homeViewModel.uiState.value.user?.lastName ?: ""))
-            Text(text = "user name :"+ (homeViewModel.uiState.value.user?.userName ?: ""))
+            Text(text = "first name :"+ (homeUiState.user?.firstName ?: "first name undefined"))
+            Text(text = "last name :"+ (homeUiState.user?.lastName ?: ""))
+            Text(text = "user name :"+ (homeUiState.user?.userName ?: ""))
         }
     }
 }

@@ -113,8 +113,8 @@ fun TopAppBar(
                     Text(text = homeUiState.user!!.userName)
                     IconButton(
                         onClick = {
+                                  homeViewModel.logOutUser()
                         },
-                        //modifier = Modifier . weight (1f)
                     ) {
                         Icon(
                             Icons.Default.Logout,
@@ -124,18 +124,21 @@ fun TopAppBar(
                 }
 
             }else{
-                IconButton(
+                Row(
+                    horizontalArrangement = Arrangement.End,
                     modifier = Modifier.weight(1f),
-                    onClick = {
-                        val intent = Intent(context, LoginActivity::class.java)
-                        context.startActivity(intent)
-                    },
-                    //modifier = Modifier . weight (1f)
-                ) {
-                    Icon(
-                        Icons.Default.AccountCircle,
-                        contentDescription = "",
-                    )
+                ){
+                    IconButton(
+                        onClick = {
+                            val intent = Intent(context, LoginActivity::class.java)
+                            context.startActivity(intent)
+                        }
+                    ) {
+                        Icon(
+                            Icons.Default.AccountCircle,
+                            contentDescription = "",
+                        )
+                    }
                 }
             }
 

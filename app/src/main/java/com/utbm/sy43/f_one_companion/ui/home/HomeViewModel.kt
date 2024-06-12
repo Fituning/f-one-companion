@@ -23,7 +23,7 @@ class HomeViewModel : ViewModel() {
         fetchUserProfile()
     }
 
-    fun fetchUserProfile() {
+    private fun fetchUserProfile() {
         val userId = "IXIQhyKysFaIG3teUnbdnkauUu12"
         Log.d("test firestore",userId)
         if (userId != null) {
@@ -41,6 +41,12 @@ class HomeViewModel : ViewModel() {
                     Log.e("test firestore", e.toString())
                 }
         }
+    }
+
+
+    fun logOutUser(){
+        auth.signOut()
+        _uiState.value = HomeUiState(user = null)
     }
 
 

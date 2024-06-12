@@ -1,14 +1,18 @@
 package com.utbm.sy43.f_one_companion.ui.login.screens
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.utbm.sy43.f_one_companion.R
+import com.utbm.sy43.f_one_companion.ui.home.HomeActivity
+import com.utbm.sy43.f_one_companion.ui.login.LoginActivity
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 import com.utbm.sy43.f_one_companion.ui.theme.customTextFieldColors
 import com.utbm.sy43.f_one_companion.ui.theme.errorContainerDark
@@ -36,13 +42,29 @@ fun LoginPreview() {
 }
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(
+        navController: NavHostController,
+        context: Context = LocalContext.current,
+    ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val passwordError by remember { mutableStateOf(false) }
     val emailError by remember { mutableStateOf(false) }
     var help by remember { mutableStateOf("") }
     var auth = FirebaseAuth.getInstance()
+
+    fun signIn() {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val mainIntent = Intent(context, HomeActivity::class.java)
+                    context.startActivity(mainIntent)
+                    (context as LoginActivity).finish() // Fermez LoginActivity
+                } else {
+                    help = task.exception?.message.toString()
+                }
+            }
+    }
 
 
     Column(
@@ -87,8 +109,9 @@ fun LoginScreen(navController: NavHostController) {
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done
             ),
+            keyboardActions = KeyboardActions { signIn() },
             placeholder = { Text("Entrez votre mot de passe") },
             isError = passwordError,
             colors = customTextFieldColors()
@@ -98,16 +121,11 @@ fun LoginScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 .height(24.dp)
         )
-        Button(onClick = {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        navController.navigate("home")// todo pourquoi cette ptn de route fonctionne
-                    } else {
-                        help = task.exception?.message.toString()
-                    }
-                }
-        }) {
+        Button(
+            onClick = {
+                signIn()
+            }
+        ) {
             Text("Login")
         }
         Spacer(
