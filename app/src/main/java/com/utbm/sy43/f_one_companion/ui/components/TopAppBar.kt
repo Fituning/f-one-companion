@@ -112,7 +112,7 @@ fun TopAppBar(
                 ) {
                     Text(text = homeUiState.user!!.userName)
                     IconButton(
-                        onClick = { // TODO disconnect
+                        onClick = {
                         },
                         //modifier = Modifier . weight (1f)
                     ) {

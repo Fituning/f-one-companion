@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utbm.sy43.f_one_companion.NavGraph
 import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
-import com.utbm.sy43.f_one_companion.ui.home.MainApp
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 
 class LoginActivity : ComponentActivity() {
