@@ -13,3 +13,16 @@ fun NavGraph(startDestination: String = "login") {
 
     }
 }
+
+@Composable
+fun HomeNavGraph(startDestination: String = "login"){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = startDestination) {
+        composable("home") {
+
+        }
+        composable("driver_list") {
+
+        }
+    }
+}
