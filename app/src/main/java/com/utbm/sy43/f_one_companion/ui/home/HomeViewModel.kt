@@ -17,6 +17,8 @@ class HomeViewModel : ViewModel() {
     val db = FirebaseFirestore.getInstance()
 
     init {
+        auth.signInWithEmailAndPassword("carlo@test.com","210901")
+        Log.d("test firestore", auth.currentUser?.uid.toString())
         // Fetch user data at the launch of the application
         fetchUserProfile()
     }

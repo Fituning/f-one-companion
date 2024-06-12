@@ -29,12 +29,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.utbm.sy43.f_one_companion.R
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 import com.utbm.sy43.f_one_companion.ui.login.LoginActivity
 import com.utbm.sy43.f_one_companion.ui.splash_screen.SplashScreenActivity
+import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
+
+
+@Preview
+@Composable
+fun TopAppBarPreview()
+{
+    FOneCompanionTheme {
+        TopAppBar(navController = rememberNavController(), homeViewModel = HomeViewModel())
+    }
+}
+
 
 @Composable
 fun TopAppBar(
@@ -52,26 +66,35 @@ fun TopAppBar(
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp)
         ) {
-            IconButton(
-                onClick = {
-                    navController.navigate("driver_list")
-                    /*
-                    val intent = Intent(context, SplashScreenActivity::class.java)
-                    context.startActivity(intent)
-                    */
-                }
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.weight(1f),
             ) {
-                Icon(
-                    Icons.Default.Menu,
-                    contentDescription = "",
-                )
+                IconButton(
+
+                    onClick = {
+                        navController.navigate("user_info")
+                        /*
+                        val intent = Intent(context, SplashScreenActivity::class.java)
+                        context.startActivity(intent)
+                        */
+                    }
+                ) {
+                    Icon(
+                        Icons.Default.Menu,
+                        contentDescription = "",
+                    )
+                }
             }
 
+
             IconButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(64.dp),
                 onClick = {
                     navController.navigate("home")
                 },
-                modifier = Modifier.size(64.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.f_one_companion_logo),
@@ -82,20 +105,27 @@ fun TopAppBar(
             }
 
             if (homeUiState.user != null){
-                Text(text = homeUiState.user!!.userName)
-                IconButton(
-                    onClick = { // TODO disconnect
-                    },
-                    //modifier = Modifier . weight (1f)
+                Row(
+                    modifier = Modifier.weight(1f),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        Icons.Default.Logout,
-                        contentDescription = "",
-                    )
+                    Text(text = homeUiState.user!!.userName)
+                    IconButton(
+                        onClick = { // TODO disconnect
+                        },
+                        //modifier = Modifier . weight (1f)
+                    ) {
+                        Icon(
+                            Icons.Default.Logout,
+                            contentDescription = "",
+                        )
+                    }
                 }
 
             }else{
                 IconButton(
+                    modifier = Modifier.weight(1f),
                     onClick = {
                         val intent = Intent(context, LoginActivity::class.java)
                         context.startActivity(intent)

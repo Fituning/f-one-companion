@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 import com.utbm.sy43.f_one_companion.ui.home.screens.DriverListScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.HomeScreen
+import com.utbm.sy43.f_one_companion.ui.home.screens.UserInfoScreen
 
 @Composable
 fun NavGraph(startDestination: String = "login") {
@@ -29,6 +30,10 @@ fun HomeNavGraph(startDestination: String = "home"){
         composable("driver_list") {
             val homeViewModel : HomeViewModel = viewModel()
             DriverListScreen(homeViewModel = homeViewModel, navController = navController)
+        }
+        composable("user_info") {
+            val homeViewModel : HomeViewModel = viewModel()
+            UserInfoScreen(homeViewModel = homeViewModel, navController = navController)
         }
     }
 }
