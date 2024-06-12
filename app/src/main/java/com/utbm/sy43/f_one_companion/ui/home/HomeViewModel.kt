@@ -8,6 +8,7 @@ import com.utbm.sy43.f_one_companion.data.model.UserProfile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class HomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -21,11 +22,28 @@ class HomeViewModel : ViewModel() {
         Log.d("test firestore", auth.currentUser?.uid.toString())
         // Fetch user data at the launch of the application
         fetchUserProfile()
+        //createData()
+    }
+
+    private fun createData() {
+        val userId = "nbTEMSMhmmMMOb1Jg81sPSAvseh2"
+        val testUser = UserProfile(userName = "test")
+        _uiState.value = _uiState.value.copy(user = testUser)
+        val user = _uiState.value.user
+
+        if (userId != null && user != null) {
+            db.collection("users").document(userId).set(user)
+                .addOnSuccessListener {
+                }
+                .addOnFailureListener { e ->
+                    Log.e("authtag", e.toString())
+                }
+        }
+
     }
 
     private fun fetchUserProfile() {
-        val userId = "IXIQhyKysFaIG3teUnbdnkauUu12"
-        Log.d("test firestore",userId)
+        val userId = auth.currentUser?.uid
         if (userId != null) {
             db.collection("users").document(userId).get()
                 .addOnSuccessListener { document ->

@@ -9,22 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
+import com.utbm.sy43.f_one_companion.ui.components.StandingsComponent
 import com.utbm.sy43.f_one_companion.ui.components.TopAppBar
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 
 @Composable
 fun DriverListScreen( homeViewModel: HomeViewModel, navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(navController = navController, homeViewModel = homeViewModel)
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "driver list")
-        }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(text = "driver list")
     }
+
+
 }

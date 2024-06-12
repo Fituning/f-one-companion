@@ -18,19 +18,11 @@ import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 fun UserInfoScreen( homeViewModel: HomeViewModel, navController: NavController) {
     val homeUiState by homeViewModel.uiState.collectAsState()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(navController = navController, homeViewModel = homeViewModel)
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "first name :"+ (homeUiState.user?.firstName ?: "first name undefined"))
-            Text(text = "last name :"+ (homeUiState.user?.lastName ?: ""))
-            Text(text = "user name :"+ (homeUiState.user?.userName ?: ""))
-        }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(text = "first name :"+ (homeUiState.user?.firstName ?: "first name undefined"))
+        Text(text = "last name :"+ (homeUiState.user?.lastName ?: ""))
+        Text(text = "user name :"+ (homeUiState.user?.userName ?: ""))
     }
 }

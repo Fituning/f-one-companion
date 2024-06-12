@@ -15,18 +15,10 @@ import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel, navController: NavController){
-    Scaffold(
-        topBar = {
-            TopAppBar(navController = navController, homeViewModel = homeViewModel)
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            ImageComponent()
-            StandingsComponent()
-        }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        ImageComponent()
+        StandingsComponent()
     }
 }

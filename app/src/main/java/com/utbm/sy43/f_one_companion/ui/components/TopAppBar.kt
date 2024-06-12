@@ -2,7 +2,6 @@ package com.utbm.sy43.f_one_companion.ui.components
 
 import android.content.Context
 import android.content.Intent
-import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Button
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,27 +36,19 @@ import androidx.navigation.compose.rememberNavController
 import com.utbm.sy43.f_one_companion.R
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 import com.utbm.sy43.f_one_companion.ui.login.LoginActivity
-import com.utbm.sy43.f_one_companion.ui.splash_screen.SplashScreenActivity
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
-
-
-@Preview
-@Composable
-fun TopAppBarPreview()
-{
-    FOneCompanionTheme {
-        TopAppBar(navController = rememberNavController(), homeViewModel = HomeViewModel())
-    }
-}
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun TopAppBar(
-    navController : NavController,
-    homeViewModel : HomeViewModel,
+    navController: NavController,
+    homeViewModel: HomeViewModel,
     context: Context = LocalContext.current,
+    drawerState: DrawerState,
 ) {
     val  homeUiState by homeViewModel.uiState.collectAsState()
+    val scope = rememberCoroutineScope()
 
     Column {
         Row(
@@ -73,11 +65,12 @@ fun TopAppBar(
                 IconButton(
 
                     onClick = {
-                        navController.navigate("user_info")
-                        /*
-                        val intent = Intent(context, SplashScreenActivity::class.java)
-                        context.startActivity(intent)
-                        */
+                        //navController.navigate("user_info")
+                        scope.launch {
+                            drawerState.apply {
+                                if (isClosed) open() else close()
+                            }
+                        }
                     }
                 ) {
                     Icon(

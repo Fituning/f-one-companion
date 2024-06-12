@@ -1,6 +1,7 @@
 package com.utbm.sy43.f_one_companion
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -23,19 +24,19 @@ fun NavGraph(startDestination: String = "login") {
 }
 
 @Composable
-fun HomeNavGraph(startDestination: String = "home"){
-    val navController = rememberNavController()
+fun HomeNavGraph(
+    navController: NavHostController = rememberNavController(),
+    homeViewModel: HomeViewModel = viewModel(),
+    startDestination: String = "home"
+){
     NavHost(navController = navController, startDestination = startDestination) {
         composable("home") {
-            val homeViewModel : HomeViewModel = viewModel()
             HomeScreen(homeViewModel = homeViewModel, navController = navController)
         }
         composable("driver_list") {
-            val homeViewModel : HomeViewModel = viewModel()
             DriverListScreen(homeViewModel = homeViewModel, navController = navController)
         }
         composable("user_info") {
-            val homeViewModel : HomeViewModel = viewModel()
             UserInfoScreen(homeViewModel = homeViewModel, navController = navController)
         }
     }
