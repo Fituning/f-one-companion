@@ -2,6 +2,8 @@ package com.utbm.sy43.f_one_companion.ui.theme
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -92,3 +94,16 @@ fun FOneCompanionTheme(
   )
 }
 
+@Composable
+fun customTextFieldColors() = TextFieldDefaults.colors(
+    errorLabelColor = errorDark,
+    errorCursorColor = errorDark,
+    errorIndicatorColor = errorDark,
+    errorTextColor = errorDark,
+    unfocusedLabelColor = outlineDark,
+    unfocusedIndicatorColor = outlineDark,
+    unfocusedTextColor = outlineDark,
+    focusedLabelColor = onPrimaryDark,
+    focusedTextColor = onPrimaryDark,
+    focusedIndicatorColor = onPrimaryDark,
+)

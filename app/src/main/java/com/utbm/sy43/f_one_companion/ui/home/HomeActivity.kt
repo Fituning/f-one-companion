@@ -24,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.firebase.auth.FirebaseAuth
 import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
 import com.utbm.sy43.f_one_companion.ui.components.StandingsComponent
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
@@ -104,24 +106,32 @@ fun TopAppBar(
                     .size(64.dp)
             )
 
-            IconButton(
-                onClick = {
-                    val intent = Intent(context, LoginActivity::class.java)
-                    context.startActivity(intent)
-                },
-                //modifier = Modifier . weight (1f)
-            ) {
-                Icon(
-                    Icons.Default.AccountCircle,
-                    contentDescription = "",
-                )
-            }
+            UserDisplay()
         }
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(1.dp)
                 .background(color = MaterialTheme.colorScheme.outline)
+        )
+    }
+}
+
+
+@Composable
+fun UserDisplay(
+    context: Context = LocalContext.current
+){
+    IconButton(
+        onClick = {
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
+        },
+        //modifier = Modifier . weight (1f)
+    ) {
+        Icon(
+            Icons.Default.AccountCircle,
+            contentDescription = "",
         )
     }
 }
