@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.utbm.sy43.f_one_companion.HomeNavGraph
 import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
 import com.utbm.sy43.f_one_companion.ui.components.StandingsComponent
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
@@ -47,89 +48,19 @@ class HomeActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    MainApp()
+                    HomeNavGraph()
                 }
             }
         }
     }
 }
 
-@Composable
-fun MainApp() {
-    Scaffold(
-        topBar = {
-            TopAppBar()
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            ImageComponent()
-            StandingsComponent()
-        }
-    }
-}
 
-@Composable
-fun TopAppBar(
-    context: Context = LocalContext.current
-) {
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp)
-        ) {
-            IconButton(
-                onClick = {
-                    val intent = Intent(context, SplashScreenActivity::class.java)
-                    context.startActivity(intent)
-                },
-                //modifier = Modifier . weight (1f)
-            ) {
-                Icon(
-                    Icons.Default.Menu,
-                    contentDescription = "",
-                )
-            }
-
-            Image(
-                painter = painterResource(id = R.drawable.f_one_companion_logo),
-                contentDescription = "",//todo add description
-                modifier = Modifier
-                    .size(64.dp)
-            )
-
-            IconButton(
-                onClick = {
-                    val intent = Intent(context, LoginActivity::class.java)
-                    context.startActivity(intent)
-                },
-                //modifier = Modifier . weight (1f)
-            ) {
-                Icon(
-                    Icons.Default.AccountCircle,
-                    contentDescription = "",
-                )
-            }
-        }
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(color = MaterialTheme.colorScheme.outline)
-        )
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
     FOneCompanionTheme {
-        MainApp()
+
     }
 }

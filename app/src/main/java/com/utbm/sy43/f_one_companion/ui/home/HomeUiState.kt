@@ -1,5 +1,7 @@
 package com.utbm.sy43.f_one_companion.ui.home
 
-data class HomeUiState (
-    val username : String = ""
+import com.utbm.sy43.f_one_companion.data.model.UserProfile
+
+data class HomeUiState(
+    val user: UserProfile? = null,
 )
