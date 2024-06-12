@@ -47,7 +47,7 @@ class SplashScreenActivity : ComponentActivity() {
                 startActivity(it)
             }
             finish()
-        }, 3000)//time for loading the app
+        }, 2000)//time for loading the app todo set time
 
     }
 

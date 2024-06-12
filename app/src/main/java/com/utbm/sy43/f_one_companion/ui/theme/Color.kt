@@ -9,6 +9,7 @@ val Grey3_color = Color(0xFFB5B5B8)
 val Black1_color = Color(0xFF000000)
 val Black2_color = Color(0xFF0C0C12)
 val White_color = Color( 0xFFFFFFFF)
+val Error_color = Color(0xFFF58200)
 
 
 val primaryDark = Color(0xFFC12316) // La couleur principale pour le thème sombre (ancienne valeur : 0xFFFFB4A8)
@@ -23,7 +24,7 @@ val tertiaryDark = Color(0xFF9ACEFF) // La couleur tertiaire pour le thème somb
 val onTertiaryDark = Color(0xFF003353) // La couleur du texte/éléments sur la couleur tertiaire
 val tertiaryContainerDark = Color(0xFF46A6F0) // La couleur du conteneur tertiaire dans le thème sombre
 val onTertiaryContainerDark = Color(0xFF001526) // La couleur du texte/éléments sur le conteneur tertiaire
-val errorDark = Color(0xFFFFBB88) // La couleur d'erreur pour le thème sombre
+val errorDark = Error_color // Color(0xFFFFBB88) // La couleur d'erreur pour le thème sombre
 val onErrorDark = Color(0xFF4E2500) // La couleur du texte/éléments sur la couleur d'erreur
 val errorContainerDark = Color(0xFFF58200) // La couleur du conteneur d'erreur dans le thème sombre
 val onErrorContainerDark = Color(0xFF250E00) // La couleur du texte/éléments sur le conteneur d'erreur

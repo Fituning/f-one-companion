@@ -122,7 +122,7 @@ fun ColorBarr(
 ){
     Spacer(modifier = Modifier
         .padding(0.dp)
-        .width(2.dp)
+        .width(4.dp)
         .height(16.dp)
         .background(color = color)
     )
