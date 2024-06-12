@@ -1,6 +1,8 @@
 package com.utbm.sy43.f_one_companion.ui.login.screens
 
+import android.content.ContentValues.TAG
 import android.graphics.Color
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActionScope
@@ -21,10 +23,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.FirebaseFirestore
 import com.utbm.sy43.f_one_companion.R
+import com.utbm.sy43.f_one_companion.data.model.UserProfile
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 import com.utbm.sy43.f_one_companion.ui.theme.customTextFieldColors
 import com.utbm.sy43.f_one_companion.ui.theme.*
+
+//private lateinit var auth: FirebaseAuth
 
 @Preview(showBackground = true)
 @Composable
@@ -63,13 +69,24 @@ fun SignupScreenPreview() {
 
 @Composable
 fun SignupScreen(navController: NavHostController) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordCheck by remember { mutableStateOf("") }
+//    var firstname by remember { mutableStateOf("") }
+//    var lastname by remember { mutableStateOf("") }
+//    var username by remember { mutableStateOf("") }
+//    var email by remember { mutableStateOf("") }
+//    var password by remember { mutableStateOf("") }
+//    var passwordCheck by remember { mutableStateOf("") }
+    var firstname = "Valentin"
+    var lastname = "AZANCOTH"
+    var username = "Valaz"
+    var email = "testpush@gmail.com"
+    var password = "123456"
+    var passwordCheck = "123456"
+
     var help by remember { mutableStateOf("") }
     var passwordError by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf(false) }
     val auth = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
 
     fun handleSignupError(exception: Exception?): String {
         when (exception) {
@@ -94,6 +111,15 @@ fun SignupScreen(navController: NavHostController) {
         }
     }
 
+    fun pushInformations(id: String) {
+        val infos = hashSetOf(
+            "firstName" to firstname,
+            "lastName" to lastname,
+            "userName" to username,
+        )
+        db.collection("users").document(id).set(infos)
+    }
+
     fun signUp() {
         passwordError = false
         emailError = false
@@ -101,6 +127,10 @@ fun SignupScreen(navController: NavHostController) {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        val currentUserUID = auth.currentUser?.uid
+                        if (currentUserUID != null) {
+                            pushInformations(currentUserUID)
+                        }
                         navController.navigate("home")//todo attention comprendre comment "home" renvoie vers la page d'accueil
                     } else {
                         help = handleSignupError(task.exception)
@@ -111,8 +141,6 @@ fun SignupScreen(navController: NavHostController) {
             passwordError = true
         }
     }
-
-
 
     Column(
         modifier = Modifier
@@ -125,7 +153,7 @@ fun SignupScreen(navController: NavHostController) {
             painter = painterResource(id = R.drawable.new_era_f1_logo),//TODO : remplace by MaterialTheme.colorScheme
             contentDescription = null,
             modifier = Modifier
-                .size(215.dp),
+                .height(125.dp),
             contentScale = ContentScale.Fit
         )
 
@@ -136,7 +164,45 @@ fun SignupScreen(navController: NavHostController) {
                 .height(12.dp)
         )
 
-        // todo add firstname, lastname and username fields
+        TextField(
+            value = firstname,
+            onValueChange = { firstname = it },
+            label = { Text("Firstname") },
+            placeholder = { Text("Entrez votre prénom") },
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
+            colors = customTextFieldColors()
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(12.dp)
+        )
+        TextField(
+            value = lastname,
+            onValueChange = { lastname = it },
+            label = { Text("Lastname") },
+            placeholder = { Text("Entrez votre nom") },
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
+            colors = customTextFieldColors()
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(12.dp)
+        )
+        TextField(
+            value = username,
+            onValueChange = { username = it },
+            label = { Text("Username") },
+            placeholder = { Text("Entrez votre pseudo") },
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
+            colors = customTextFieldColors()
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(12.dp)
+        )
         TextField(
             value = email,
             onValueChange = { email = it },
