@@ -1,4 +1,4 @@
-package com.utbm.sy43.f_one_companion.ui.components
+package com.utbm.sy43.f_one_companion.ui.components.image
 
 
 import com.utbm.sy43.f_one_companion.R

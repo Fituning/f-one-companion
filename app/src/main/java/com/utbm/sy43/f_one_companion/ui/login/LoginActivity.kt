@@ -1,6 +1,7 @@
 package com.utbm.sy43.f_one_companion.ui.login
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -14,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utbm.sy43.f_one_companion.NavGraph
-import com.utbm.sy43.f_one_companion.ui.components.ImageComponent
+import com.utbm.sy43.f_one_companion.ui.components.image.ImageComponent
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         super.onCreate(savedInstanceState)
         setContent {
             FOneCompanionTheme {

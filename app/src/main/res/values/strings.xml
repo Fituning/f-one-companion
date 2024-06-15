@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">FOneCompanion</string>
+    <string name="weak_password">The password is too weak.\n(It must contain at least 6 digits)</string>
+    <string name="wrong_email_format">The email address is badly formatted.</string>
+    <string name="email_already_used">The email address is already in use by another account.</string>
+    <string name="error_account_creation">"Authentication failed "</string>
+    <string name="not_same_password" >Please enter the same password</string>
+    <string name="label_firstname">Firstname</string>
+    <string name="pholder_firstname">Enter your first name</string>
+    <string name="label_lastname">Lastname</string>
+    <string name="pholder_lastname">Enter your last name</string>
+    <string name="label_username">Username</string>
+    <string name="pholder_username">Enter your user name</string>
+    <string name="label_email" translatable="false">Email</string>
+    <string name="pholder_email">Enter your email address</string>
+    <string name="label_password">Password</string>
+    <string name="pholder_password">Enter your password</string>
+    <string name="pholder_retype_password">Confirm your password</string>
+    <string name="signup">Sign Up</string>
+    <string name="signin_catchphrase">Already have an account? Login</string>
+    <string name="signin">Login</string>
+    <string name="signup_catchphrase">Don\'t have an account? Sign up</string>
+    <string name="error_email_input">Please enter an email address</string>
+    <string name="error_password_input">Please enter a password</string>
+    <string name="error_retype_password_input">Please confirm your password</string>
 </resources>

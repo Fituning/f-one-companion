@@ -1,4 +1,4 @@
-package com.utbm.sy43.f_one_companion.ui.components
+package com.utbm.sy43.f_one_companion.ui.components.team_standings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

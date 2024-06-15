@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -70,7 +73,8 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -92,7 +96,8 @@ fun LoginScreen(
         TextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text(stringResource(id = R.string.label_email)) },
+            placeholder = { Text(stringResource(id = R.string.pholder_email)) },
             isError = emailError,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             colors = customTextFieldColors()
@@ -105,14 +110,14 @@ fun LoginScreen(
         TextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(id = R.string.label_password)) },
+            placeholder = { Text(stringResource(id = R.string.pholder_password)) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions { signIn() },
-            placeholder = { Text("Entrez votre mot de passe") },
             isError = passwordError,
             colors = customTextFieldColors()
         )
@@ -126,7 +131,7 @@ fun LoginScreen(
                 signIn()
             }
         ) {
-            Text("Login")
+            Text(stringResource(id = R.string.signin))
         }
         Spacer(
             modifier = Modifier.weight(1f)
@@ -134,7 +139,7 @@ fun LoginScreen(
         TextButton(onClick = {
             navController.navigate("signup")
         }) {
-            Text("Don't have an account? Sign up")
+            Text(stringResource(id = R.string.signup_catchphrase))
         }
     }
 }
