@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,11 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.utbm.sy43.f_one_companion.ui.components.standings.DriverDisplay
-import com.utbm.sy43.f_one_companion.ui.components.standings.ErrorScreen
-import com.utbm.sy43.f_one_companion.ui.components.standings.LoadingScreen
-import com.utbm.sy43.f_one_companion.ui.components.standings.StandingsUiState
 import com.utbm.sy43.f_one_companion.ui.theme.*
 
 @Composable
@@ -109,14 +105,16 @@ fun CardWithBorder(
 
 @Composable
 fun ColorBarr(
-    teamId: String =""
+    teamId: String ="",
+    height: Dp = 16.dp,
+    with: Dp = 3.dp
 ) {
     val color = TeamColor(teamId)
     Spacer(
         modifier = Modifier
             .padding(end = 8.dp)
-            .width(3.dp)
-            .height(16.dp)
+            .width(with)
+            .height(height)
             .background(color = color)
     )
 }
