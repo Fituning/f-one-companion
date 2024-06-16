@@ -31,9 +31,5 @@ data class StandingsLists(
     @SerialName("season") val season: String,
     @SerialName("round") val round: String,
     @SerialName("DriverStandings") val driversStandings: List<DriverStandings> = emptyList(),
-    @SerialName("ConstructorStandings") val constructorStandings: List<Constructor> = emptyList(),
+    @SerialName("ConstructorStandings") val constructorStandings: List<ConstructorStandings> = emptyList(),
 )
-
-
-
-//race response

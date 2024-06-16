@@ -24,7 +24,7 @@ interface ErgastApiService {
 
     @GET("api/f1/current/driverStandings.json")
     suspend fun getDriversStandings() : MRData
-    @GET("api/f1/current/teamStandings.json")
+    @GET("api/f1/current/constructorStandings.json")
     suspend fun getTeamStandings() : MRData
 
 }

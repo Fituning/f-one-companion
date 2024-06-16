@@ -1,6 +1,11 @@
 package com.utbm.sy43.f_one_companion
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -29,7 +34,10 @@ fun HomeNavGraph(
     homeViewModel: HomeViewModel = viewModel(),
     startDestination: String = "home"
 ){
-    NavHost(navController = navController, startDestination = startDestination) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        ) {
         composable("home") {
             HomeScreen(homeViewModel = homeViewModel, navController = navController)
         }

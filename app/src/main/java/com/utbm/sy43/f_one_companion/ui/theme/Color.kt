@@ -49,6 +49,19 @@ val surfaceContainerHighDark = Color(0xFF2A2A2A) // La couleur du conteneur de s
 val surfaceContainerHighestDark = Color(0xFF353435) // La couleur du conteneur de surface le plus haut pour le thème sombre
 
 
+// teams colors
+
+val MercedesColor = Color(0xFF27F4D2)  // Mercedes-AMG Petronas
+val RedBullColor = Color(0xFF3671C6)  // Red Bull Racing
+val FerrariColor = Color(0xFFE8002D)  // Scuderia Ferrari
+val McLarenColor = Color(0xFFFF8000)  // McLaren F1 Team
+val AlpineColor = Color(0xFFFF87BC)  // Alpine F1 Team
+val RBColor = Color(0xFF6692FF)  // Visa Cash App RB
+val AstonMartinColor = Color(0xFF229971)  // Aston Martin Cognizant
+val WilliamsColor = Color(0xFF64C4FF)  // Williams Racing
+val KickSauberColor = Color(0xFF52E252)  // Stake F1 (Kick Sauber)
+val HaasColor = Color(0xFFB6BABD)  // Haas F1 Team
+
 
 
 

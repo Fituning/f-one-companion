@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,80 +33,61 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.utbm.sy43.f_one_companion.data.model.serializable_model.ConstructorStandings
 import com.utbm.sy43.f_one_companion.data.model.serializable_model.Driver
 import com.utbm.sy43.f_one_companion.data.model.serializable_model.DriverStandings
+import com.utbm.sy43.f_one_companion.ui.components.CardWithBorder
+import com.utbm.sy43.f_one_companion.ui.components.ColorBarr
 import com.utbm.sy43.f_one_companion.ui.theme.FOneCompanionTheme
 
 @Composable
 fun DriverStandingsComponent(
     modifier: Modifier = Modifier,
     standingsUiState: StandingsUiState,
+    listSize: Int = 5
 ) {
-    CardWithBorder {
-        Text(
-            text = "Driver Standings",
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.displayMedium,
-            modifier = Modifier
-                .padding(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 6.dp)
-                .fillMaxWidth()
-        )
-        Spacer(
-            modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.outline)
-                .fillMaxWidth()
-                .height(1.dp)
-        )
-
-        Column(
-            modifier = Modifier.padding(bottom = 4.dp)
-        ) {
-            when (standingsUiState) {
-                is StandingsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-                is StandingsUiState.Success -> standingsUiState.driversStandings?.let {
-                    DriverDisplay(
-                        drivers = it
-                    )
-                }
-                is StandingsUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
+    CardWithBorder(title = "Driver Standings") {
+        when (standingsUiState) {
+            is StandingsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+            is StandingsUiState.Success -> standingsUiState.driversStandings?.let {
+                DriverDisplay(
+                    drivers = it,
+                    listSize= listSize
+                )
             }
+            is StandingsUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
         }
     }
 }
+
 
 @Composable
 fun TeamStandingsComponent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    standingsUiState: StandingsUiState,
+    listSize: Int = 5
 ) {
-    CardWithBorder {
-        Text(
-            text = "Team Standings",
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.displayMedium,
-            modifier = Modifier
-                .padding(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 6.dp)
-                .fillMaxWidth()
-        )
-        Spacer(
-            modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.outline)
-                .fillMaxWidth()
-                .height(1.dp)
-        )
-
-        Column(modifier = Modifier.padding(bottom = 4.dp)) {
-            //todo replace by values
-            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surface)
-            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surfaceVariant)
-            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surface)
-            TeamLineInfo(bgColor = MaterialTheme.colorScheme.surfaceVariant)
+    CardWithBorder(title = "Team Standings") {
+        when (standingsUiState) {
+            is StandingsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+            is StandingsUiState.Success -> standingsUiState.constructors?.let {
+                TeamDisplay(
+                    constructors = it,
+                    listSize = listSize
+                )
+            }
+            is StandingsUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
         }
     }
 }
+
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
     // Add your loading screen implementation here
+    Box(modifier = Modifier.fillMaxSize()){
+        CircularProgressIndicator()
+    }
 }
 
 @Composable
@@ -128,81 +110,31 @@ fun DriverDisplay(
             DriverLineInfo(bgColor = bgColor, driverStanding = drivers.get(index))
         }
     }
-
 }
 
+
 @Composable
-fun CardWithBorder(
-    content: @Composable ColumnScope.() -> Unit
+fun TeamDisplay(
+    constructors: List<ConstructorStandings>,
+    listSize: Int = 5
 ) {
-    Box(
-        contentAlignment = Alignment.BottomEnd,
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .height(IntrinsicSize.Min) // Ensure height is intrinsic
-            .padding(start = 14.dp, end = 12.dp, top = 14.dp, bottom = 12.dp)
-            .clip(MaterialTheme.shapes.medium)
-            .background(color = MaterialTheme.colorScheme.surface)
-    ) {
-
-        Column(
-            verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(start = 2.dp, top = 2.dp)
-                .background(
-                    color = MaterialTheme.colorScheme.surface,
-                    shape = RoundedCornerShape(topStart = 12.dp)
-                )
-                .border(
-                    width = 2.dp,
-                    color = MaterialTheme.colorScheme.primary,
-                    shape = RoundedCornerShape(topStart = 12.dp, bottomEnd = 6.dp),
-                )
-        ) {
-            content()
-        }
-
-
-
-        Box(
-            modifier = Modifier
-                .height(4.dp)
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(0.dp)
-        ) {
-        }
-        Box(
-            modifier = Modifier
-                .width(4.dp)
-                .fillMaxHeight()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(0.dp)
-        ) {
+    Column {
+        for (index in 0..listSize-1){
+            val bgColor = if (index % 2 == 0) {
+                MaterialTheme.colorScheme.surface
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
+            }
+            TeamLineInfo(bgColor = bgColor, constructorStandings = constructors.get(index))
         }
     }
 }
 
-@Composable
-fun ColorBarr(
-    color: Color = MaterialTheme.colorScheme.primary
-) {
-    Spacer(
-        modifier = Modifier
-            .padding(0.dp)
-            .width(4.dp)
-            .height(16.dp)
-            .background(color = color)
-    )
-}
 
 @Composable
 fun TeamLineInfo(
     bgColor: Color = MaterialTheme.colorScheme.surface,
+    constructorStandings: ConstructorStandings,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -220,24 +152,24 @@ fun TeamLineInfo(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .padding(start = 6.dp)
-                    .height(IntrinsicSize.Min) // todo check modif
+                    .height(IntrinsicSize.Min)
             ) {
+                //team color
+                ColorBarr(constructorStandings.constructor.constructorId)
+
                 Text(
-                    text = "1",
-                    style = MaterialTheme.typography.bodyLarge,
+                    text = constructorStandings.position.toString(),
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.width(24.dp)
                 )
-
-                //team color
-                ColorBarr(Color(0xFF0600EF))
             }
             // position
 
             // nb wins
             Text(
-                text = "30",
-                style = MaterialTheme.typography.bodyLarge,
+                text = constructorStandings.wins.toString(),
+                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.width(24.dp)
@@ -245,7 +177,7 @@ fun TeamLineInfo(
 
             // team Name
             Text(
-                text = "redbull racing".uppercase(),
+                text = constructorStandings.constructor.name.toUpperCase(),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.width(200.dp)
@@ -253,9 +185,9 @@ fun TeamLineInfo(
 
             // Teams points
             Text(
-                text = "141",
+                text = constructorStandings.points.toString(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .width(48.dp)
@@ -286,27 +218,28 @@ fun DriverLineInfo(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(start = 6.dp)
+                    .padding(start = 12.dp)
                     .height(IntrinsicSize.Min)// todo check modif
             ) {
+                //team color
+                ColorBarr(teamId = driverStanding.constructors.get(0).constructorId)
+
                 Text(
                     text = driverStanding.position.toString(),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.width(24.dp)
                 )
 
-                //team color
-                ColorBarr(Color(0xFF0600EF)) // todo set team color
             }
 
             // diriver number
             Text(
-                text = driverStanding.driver.permanentNumber.toString(),
-                style = MaterialTheme.typography.bodyLarge,
+                text =  driverStanding.driver.permanentNumber.toString(),
+                style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.width(24.dp)
+                modifier = Modifier.width(42.dp)
             )
 
             // driver Name
@@ -321,7 +254,7 @@ fun DriverLineInfo(
             Text(
                 text = driverStanding.points.toString(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .width(48.dp)

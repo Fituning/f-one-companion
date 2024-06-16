@@ -10,3 +10,11 @@ data class Constructor(
     @SerialName("name") val name : String,
     @SerialName("nationality") val nationality : String,
 )
+
+@Serializable
+data class ConstructorStandings(
+    @SerialName("position") val position : Int,
+    @SerialName("points") val points : Int,
+    @SerialName("wins") val wins : Int,
+    @SerialName("Constructor") val constructor: Constructor,
+)

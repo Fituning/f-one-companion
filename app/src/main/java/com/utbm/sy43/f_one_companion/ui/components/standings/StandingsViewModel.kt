@@ -24,10 +24,10 @@ class StandingsViewModel : ViewModel() {
         viewModelScope.launch {
             _uistate = try{
                 val driverStandings = ErgastApi.retrofitService.getDriversStandings()
-                //val teamStandings = ErgastApi.retrofitService.getTeamStandings()
+                val teamStandings = ErgastApi.retrofitService.getTeamStandings()
                 StandingsUiState.Success(
                     driversStandings = driverStandings.MRData.standingsTable?.standingsLists?.get(0)?.driversStandings,
-                    constructors = null //teamStandings.MRData.standingsTable?.standingsLists?.constructorStandings
+                    constructors = teamStandings.MRData.standingsTable?.standingsLists?.get(0)?.constructorStandings
                 )
             }catch (e: IOException){
                 Log.e("", e.toString())
