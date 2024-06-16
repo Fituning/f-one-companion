@@ -132,6 +132,6 @@ fun TeamColor(teamId : String): Color
         "alpine" -> AlpineColor
         "williams" -> WilliamsColor
         "sauber" -> KickSauberColor
-        else -> Color(0x00000000)
+        else -> FerrariColor
     }
 }

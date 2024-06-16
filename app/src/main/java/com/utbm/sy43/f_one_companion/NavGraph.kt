@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.utbm.sy43.f_one_companion.ui.components.standings.StandingsViewModel
 import com.utbm.sy43.f_one_companion.ui.login.screens.*
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 import com.utbm.sy43.f_one_companion.ui.home.screens.DriverListScreen
@@ -27,18 +28,17 @@ fun HomeNavGraph(
     homeViewModel: HomeViewModel = viewModel(),
     startDestination: String = "home"
 ){
+    val standingsViewModel : StandingsViewModel = viewModel()
     NavHost(
         navController = navController,
         startDestination = startDestination,
         ) {
+
         composable("home") {
             HomeScreen(homeViewModel = homeViewModel, navController = navController)
         }
         composable("driver_list") {
-            DriverListScreen(
-                //homeViewModel = homeViewModel,
-                // navController = navController
-            )
+            DriverListScreen(standingsViewModel._uistate)
         }
         composable("user_info") {
             UserInfoScreen(homeViewModel = homeViewModel, navController = navController)
