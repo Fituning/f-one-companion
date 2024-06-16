@@ -18,28 +18,51 @@ class HomeViewModel : ViewModel() {
     val db = FirebaseFirestore.getInstance()
 
     init {
-        //auth.signInWithEmailAndPassword("carlo@test.com","210901")
-        Log.d("test firestore", auth.currentUser?.uid.toString())
-        // Fetch user data at the launch of the application
         fetchUserProfile()
-        //createData()
     }
 
-    private fun createData() {
-        val userId = "nbTEMSMhmmMMOb1Jg81sPSAvseh2"
-        val testUser = UserProfile(userName = "test")
-        _uiState.value = _uiState.value.copy(user = testUser)
-        val user = _uiState.value.user
+    fun addDriverFav(driverName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val user = _uiState.value.user
+            if (user != null) {
+                val updatedFavorites = user.favoriteDrivers.toMutableList()
+                updatedFavorites.add(driverName)
+                val updatedUser = user.copy(favoriteDrivers = updatedFavorites)
 
-        if (userId != null && user != null) {
-            db.collection("users").document(userId).set(user)
-                .addOnSuccessListener {
-                }
-                .addOnFailureListener { e ->
-                    Log.e("authtag", e.toString())
-                }
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", e.toString())
+                    }
+            }
         }
+    }
 
+    fun removeDriverFav(driverName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val user = _uiState.value.user
+            if (user != null) {
+                val updatedFavorites = user.favoriteDrivers.toMutableList()
+                updatedFavorites.remove(driverName)
+                val updatedUser = user.copy(favoriteDrivers = updatedFavorites)
+
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", e.toString())
+                    }
+            }
+        }
     }
 
     private fun fetchUserProfile() {
@@ -66,6 +89,8 @@ class HomeViewModel : ViewModel() {
         auth.signOut()
         _uiState.value = HomeUiState(user = null)
     }
+
+
 
 
 

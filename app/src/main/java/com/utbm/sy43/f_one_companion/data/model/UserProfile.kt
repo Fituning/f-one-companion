@@ -4,6 +4,7 @@ data class UserProfile(
     var firstName: String = "",
     var lastName: String = "",
     var userName: String = "",
-    val favoriteDrivers: List<String> = listOf(),
-    val favoriteTeams: List<String> = listOf()
+    var favoriteDrivers: MutableList<String> = mutableListOf(),
+    var favoriteTeams: MutableList<String> = mutableListOf()
 )
+

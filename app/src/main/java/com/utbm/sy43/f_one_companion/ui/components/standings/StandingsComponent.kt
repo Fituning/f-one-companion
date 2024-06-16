@@ -25,23 +25,24 @@ import com.utbm.sy43.f_one_companion.data.model.serializable_model.ConstructorSt
 import com.utbm.sy43.f_one_companion.data.model.serializable_model.DriverStandings
 import com.utbm.sy43.f_one_companion.ui.components.CardWithBorder
 import com.utbm.sy43.f_one_companion.ui.components.ColorBarr
+import com.utbm.sy43.f_one_companion.ui.home.ErgastUiState
 
 @Composable
 fun DriverStandingsComponent(
     modifier: Modifier = Modifier,
-    standingsUiState: StandingsUiState,
+    ergastUiState: ErgastUiState,
     listSize: Int = 5
 ) {
     CardWithBorder(title = "Driver Standings") {
-        when (standingsUiState) {
-            is StandingsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-            is StandingsUiState.Success -> standingsUiState.driversStandings?.let {
+        when (ergastUiState) {
+            is ErgastUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+            is ErgastUiState.Success -> ergastUiState.driversStandings?.let {
                 DriverDisplay(
                     drivers = it,
                     listSize= listSize
                 )
             }
-            is StandingsUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
+            is ErgastUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
         }
     }
 }
@@ -50,26 +51,26 @@ fun DriverStandingsComponent(
 @Composable
 fun TeamStandingsComponent(
     modifier: Modifier = Modifier,
-    standingsUiState: StandingsUiState,
+    ergastUiState: ErgastUiState,
     listSize: Int = 5
 ) {
     CardWithBorder(title = "Team Standings") {
-        when (standingsUiState) {
-            is StandingsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-            is StandingsUiState.Success -> standingsUiState.constructors?.let {
+        when (ergastUiState) {
+            is ErgastUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+            is ErgastUiState.Success -> ergastUiState.constructors?.let {
                 TeamDisplay(
                     constructors = it,
                     listSize = listSize
                 )
             }
-            is StandingsUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
+            is ErgastUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
         }
     }
 }
 
 
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
+fun LoadingScreen(modifier: Modifier) {
     // Add your loading screen implementation here
     Box(modifier = Modifier.fillMaxSize()){
         CircularProgressIndicator()
@@ -77,7 +78,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
+fun ErrorScreen(modifier: Modifier) {
     // Add your error screen implementation here
 }
 
@@ -119,9 +120,9 @@ fun TeamDisplay(
 
 @Composable
 fun TeamLineInfo(
+    modifier: Modifier = Modifier,
     bgColor: Color = MaterialTheme.colorScheme.surface,
     constructorStandings: ConstructorStandings,
-    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier.background(color = bgColor)
@@ -163,7 +164,7 @@ fun TeamLineInfo(
 
             // team Name
             Text(
-                text = constructorStandings.constructor.name.toUpperCase(),
+                text = constructorStandings.constructor.name.uppercase(),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.width(200.dp)
@@ -185,8 +186,8 @@ fun TeamLineInfo(
 
 @Composable
 fun DriverLineInfo(
-    bgColor: Color = MaterialTheme.colorScheme.surface,
     modifier: Modifier = Modifier,
+    bgColor: Color = MaterialTheme.colorScheme.surface,
     driverStanding: DriverStandings,
 ) {
     Box(

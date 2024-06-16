@@ -11,16 +11,20 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddLocation
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -28,14 +32,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,46 +53,143 @@ import com.utbm.sy43.f_one_companion.data.model.serializable_model.DriverStandin
 import com.utbm.sy43.f_one_companion.ui.components.ColorBarr
 import com.utbm.sy43.f_one_companion.ui.components.standings.ErrorScreen
 import com.utbm.sy43.f_one_companion.ui.components.standings.LoadingScreen
-import com.utbm.sy43.f_one_companion.ui.components.standings.StandingsUiState
+import com.utbm.sy43.f_one_companion.ui.home.ErgastUiState
+import com.utbm.sy43.f_one_companion.ui.home.HomeUiState
+import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 
 @Composable
 fun DriverListScreen(
-    standingsUiState: StandingsUiState,
-    //homeViewModel: HomeViewModel = viewModel(),
-    // navController: NavController? = null
+    ergastUiState: ErgastUiState,
+    homeViewModel: HomeViewModel,
 ) {
-
-    when (standingsUiState) {
-        is StandingsUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
-        is StandingsUiState.Success -> standingsUiState.driversStandings?.let {
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier.padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+    val  homeUiState by homeViewModel.uiState.collectAsState()
+    when (ergastUiState) {
+        is ErgastUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+        is ErgastUiState.Success -> ergastUiState.driversStandings?.let {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(standingsUiState.driversStandings){driverStandings ->
-                    DriverCard(driverStanding = driverStandings)
+                Text(
+                    modifier = Modifier.padding(top= 16.dp, bottom = 4.dp),
+                    text = stringResource(id = R.string.season_divers),
+                    style = MaterialTheme.typography.displayMedium,
+                )
+
+                Box {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp,),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(2){
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                        items(ergastUiState.driversStandings){ driverStandings ->
+                            DriverCard(driverStanding = driverStandings, homeViewModel = homeViewModel, homeUiState = homeUiState)
+                        }
+                    }
+
+                    val colorStops2 = arrayOf(
+                        0.0f to Color(0xFF15151D),
+                        0.20f to Color(0xFF15151D),
+                        0.45f to Color(0xBF15151D),
+                        0.70f to Color(0x8015151D),
+                        0.85f to Color(0x4015151D),
+                        1.0f to Color(0x0015151D)
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(32.dp)
+                            .background(Brush.verticalGradient(colorStops = colorStops2))
+
+                    )
+                }
+
+
+
+            }
+
+        }
+        is ErgastUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
+    }
+
+}
+@Preview
+@Composable
+fun CardPreview(){
+    FOneCompanionTheme {
+        //FavDriverListScreen()
+    }
+}
+
+@Composable
+fun FavDriverListScreen(
+    ergastUiState: ErgastUiState,
+    homeViewModel: HomeViewModel,
+) {
+    val  homeUiState by homeViewModel.uiState.collectAsState()
+    when (ergastUiState) {
+        is ErgastUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+        is ErgastUiState.Success -> ergastUiState.driversStandings?.let {
+            val favoriteDriverStandings = it.filter { driverStanding ->
+                homeUiState.user?.favoriteDrivers?.contains(driverStanding.driver.driverId) == true
+            }.sortedBy { driverStanding ->
+                homeUiState.user?.favoriteDrivers?.indexOf(driverStanding.driver.driverId) ?: Int.MAX_VALUE
+            }
+            if(favoriteDriverStandings.isNotEmpty()){
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.my_favorite_drivers),
+                        style = MaterialTheme.typography.displayMedium,
+                    )
+
+                    LazyHorizontalGrid(
+                        rows = GridCells.Fixed(1),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .heightIn(max = 300.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(favoriteDriverStandings){ driverStandings ->
+                            DriverCard(driverStanding = driverStandings, homeViewModel = homeViewModel, homeUiState = homeUiState)
+                        }
+                    }
                 }
             }
         }
-        is StandingsUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
+        is ErgastUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
     }
 
 }
 
+
+
 @Composable
 fun DriverCard(
-    driverStanding : DriverStandings,
+    driverStanding: DriverStandings,
+    homeViewModel: HomeViewModel,
+    homeUiState: HomeUiState,
 ) {
 
-    Column {
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp/2
+    Column(
+        modifier = Modifier.widthIn(max = screenWidth)
+    ) {
         Spacer(modifier = Modifier.height(16.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f),
+                .aspectRatio(1f)
+            ,
             shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         ) {
             Box {
@@ -126,17 +231,36 @@ fun DriverCard(
                         .wrapContentSize()
                         .background(Color.Black.copy(alpha = 0.5f), CircleShape)
                 ) {
-                    IconButton(
-                        onClick = { /*TODO*/ }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.FavoriteBorder,
-                            contentDescription = "Favorite",
-                            modifier = Modifier
-                                .padding(2.dp)
-                                .fillMaxSize()
-                        )
+                    if(homeUiState.user?.favoriteDrivers?.contains(driverStanding.driver.driverId) == true){
+                        IconButton(
+                            onClick = {
+                                homeViewModel.removeDriverFav(driverStanding.driver.driverId)
+                                //homeViewModel.logOutUser()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Favorite,
+                                contentDescription = "Favorite",
+                                tint = Color.Red,
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .fillMaxSize()
+                            )
+                        }
+                    }else{
+                        IconButton(
+                            onClick = { homeViewModel.addDriverFav(driverStanding.driver.driverId) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.FavoriteBorder,
+                                contentDescription = "Favorite",
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .fillMaxSize()
+                            )
+                        }
                     }
+
                 }
 
             }
@@ -144,7 +268,9 @@ fun DriverCard(
 
         Card(
             shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
         ) {
             Row(
                 modifier = Modifier
@@ -246,10 +372,3 @@ fun pilotNameToImageResId(lastName: String): Int {
 
 
 
-@Preview
-@Composable
-fun CardPreview(){
-    FOneCompanionTheme {
-        //DriverListScreen()
-    }
-}
