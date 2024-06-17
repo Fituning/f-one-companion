@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.utbm.sy43.f_one_companion.ui.components.image.ImageComponent
 import com.utbm.sy43.f_one_companion.ui.components.standings.DriverStandingsComponent
 import com.utbm.sy43.f_one_companion.ui.home.ErgastViewModel
@@ -22,7 +21,7 @@ fun HomeScreen(homeViewModel: HomeViewModel){
             ImageComponent()
         }
         item {
-            FavDriverListScreen(ergastUiState = ergastViewModel._uistate, homeViewModel = homeViewModel)
+            FavDriverListScreen(ergastUiState = ergastViewModel._uistate, homeViewModel = homeViewModel, extraData = true)
         }
         item {
             TeamStandingsComponent(ergastUiState = ergastViewModel._uistate)

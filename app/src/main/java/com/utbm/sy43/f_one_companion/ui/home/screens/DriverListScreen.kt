@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -130,6 +131,7 @@ fun CardPreview(){
 fun FavDriverListScreen(
     ergastUiState: ErgastUiState,
     homeViewModel: HomeViewModel,
+    extraData: Boolean,
 ) {
     val  homeUiState by homeViewModel.uiState.collectAsState()
     when (ergastUiState) {
@@ -153,13 +155,19 @@ fun FavDriverListScreen(
                     LazyHorizontalGrid(
                         rows = GridCells.Fixed(1),
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .heightIn(max = 300.dp),
+                            //.padding(horizontal = 16.dp)
+                            .heightIn(max = 320.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
+                        item(){
+                            Spacer(modifier = Modifier.width(8.dp))
+                        }
                         items(favoriteDriverStandings){ driverStandings ->
-                            DriverCard(driverStanding = driverStandings, homeViewModel = homeViewModel, homeUiState = homeUiState)
+                            DriverCard(driverStanding = driverStandings, homeViewModel = homeViewModel, homeUiState = homeUiState, extraData)
+                        }
+                        item(){
+                            Spacer(modifier = Modifier.width(8.dp))
                         }
                     }
                 }
@@ -177,12 +185,13 @@ fun DriverCard(
     driverStanding: DriverStandings,
     homeViewModel: HomeViewModel,
     homeUiState: HomeUiState,
+    extraData : Boolean =false
 ) {
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp/2
     Column(
-        modifier = Modifier.widthIn(max = screenWidth)
+        modifier = Modifier.widthIn(max = screenWidth -8.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Card(
@@ -272,42 +281,82 @@ fun DriverCard(
                 .fillMaxWidth()
                 .wrapContentHeight()
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+            Column {
                 Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp, horizontal = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    ColorBarr(driverStanding.constructors.get(0).constructorId, height = 32.dp, with = 1.dp)
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        ColorBarr(driverStanding.constructors.get(0).constructorId, height = 32.dp, with = 1.dp)
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                text = driverStanding.driver.givenName,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontSize = 12.sp,
+                            )
+                            Text(
+                                text = driverStanding.driver.familyName,
+                                style = MaterialTheme.typography.labelMedium,
+                                fontSize = 14.sp,
+                            )
+                        }
+                    }
+                    Image(
+                        painter = painterResource(id = nationalityToFlagResId(driverStanding.driver.nationality)),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(RoundedCornerShape(4.dp)),
+                    )
+
+
+                }
+                if (extraData){
+                    Spacer(
+                        modifier = Modifier
+                            .background(color = MaterialTheme.colorScheme.outline)
+                            .fillMaxWidth()
+                            .height(1.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp, horizontal = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = driverStanding.driver.givenName,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontSize = 12.sp,
-                        )
-                        Text(
-                            text = driverStanding.driver.familyName,
-                            style = MaterialTheme.typography.labelMedium,
+                            text = "P " + driverStanding.position.toString(),
+                            style = MaterialTheme.typography.displayMedium,
                             fontSize = 14.sp,
                         )
+                        Row(
+                            verticalAlignment = Alignment.Bottom
+                        ) {
+                            Text(
+                                text = driverStanding.points.toString(),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontSize = 14.sp,
+                            )
+                            Text(
+                                text = " PTS",
+                                style = MaterialTheme.typography.labelLarge,
+                                fontSize = 12.sp,
+                            )
+                        }
+
                     }
                 }
-                Image(
-                    painter = painterResource(id = nationalityToFlagResId(driverStanding.driver.nationality)),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clip(RoundedCornerShape(4.dp)),
-                )
-
-
             }
+
 
         }
 
