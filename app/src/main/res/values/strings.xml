@@ -24,5 +24,7 @@
     <string name="error_password_input">Please enter a password</string>
     <string name="error_retype_password_input">Please confirm your password</string>
     <string name="my_favorite_drivers">My favorite drivers</string>
+    <string name="my_favorite_teams">My favorite constructors</string>
     <string name="season_divers">Season drivers</string>
+    <string name="season_constructors">Season constructors</string>
 </resources>

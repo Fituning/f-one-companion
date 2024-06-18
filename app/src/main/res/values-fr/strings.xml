@@ -24,5 +24,7 @@
     <string name="error_password_input">Veillez saisir un mot de passe</string>
     <string name="error_retype_password_input">Veuillez confirmer votre mot de passe</string>
     <string name="my_favorite_drivers">Mes pilotes favoris</string>
+    <string name="my_favorite_teams">Mes équipes favoris</string>
     <string name="season_divers">Les pilotes de la saison</string>
+    <string name="season_constructors">Les équipes de la saison</string>
 </resources>

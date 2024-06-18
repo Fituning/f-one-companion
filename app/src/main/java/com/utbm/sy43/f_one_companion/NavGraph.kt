@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.utbm.sy43.f_one_companion.ui.home.ErgastViewModel
 import com.utbm.sy43.f_one_companion.ui.login.screens.*
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
+import com.utbm.sy43.f_one_companion.ui.home.screens.ConstructorListScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.DriverListScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.HomeScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.UserInfoScreen
@@ -32,13 +33,16 @@ fun HomeNavGraph(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        ) {
+    ) {
 
         composable("home") {
             HomeScreen(homeViewModel = homeViewModel)
         }
         composable("driver_list") {
             DriverListScreen(ergastViewModel._uistate, homeViewModel = homeViewModel)
+        }
+        composable("constructor_list") {
+            ConstructorListScreen(ergastViewModel._uistate, homeViewModel = homeViewModel)
         }
         composable("user_info") {
             UserInfoScreen(homeViewModel = homeViewModel, navController = navController)

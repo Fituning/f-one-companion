@@ -65,6 +65,52 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun addConstructorFav(constructorName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val user = _uiState.value.user
+            if (user != null) {
+                val updatedFavorites = user.favoriteTeams.toMutableList()
+                updatedFavorites.add(constructorName)
+                val updatedUser = user.copy(favoriteTeams = updatedFavorites)
+
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", e.toString())
+                    }
+            }
+        }
+    }
+
+    fun removeConstructorFav(constructorName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val user = _uiState.value.user
+            if (user != null) {
+                val updatedFavorites = user.favoriteTeams.toMutableList()
+                updatedFavorites.remove(constructorName)
+                val updatedUser = user.copy(favoriteTeams = updatedFavorites)
+
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", e.toString())
+                    }
+            }
+        }
+    }
+
+
+
     private fun fetchUserProfile() {
         val userId = auth.currentUser?.uid
         if (userId != null) {
