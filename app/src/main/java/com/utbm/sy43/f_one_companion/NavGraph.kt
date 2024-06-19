@@ -12,14 +12,19 @@ import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
 import com.utbm.sy43.f_one_companion.ui.home.screens.ConstructorListScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.DriverListScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.HomeScreen
+import com.utbm.sy43.f_one_companion.ui.home.screens.UpdateUserInfoScreen
 import com.utbm.sy43.f_one_companion.ui.home.screens.UserInfoScreen
 
 @Composable
 fun NavGraph(startDestination: String = "login") {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = startDestination) {
-        composable("login") {LoginScreen(navController) }
-        composable("signup") { SignupScreen(navController) }
+        composable("login") {
+            LoginScreen(navController)
+        }
+        composable("signup") {
+            SignupScreen(navController)
+        }
     }
 }
 
@@ -46,6 +51,9 @@ fun HomeNavGraph(
         }
         composable("user_info") {
             UserInfoScreen(homeViewModel = homeViewModel, navController = navController)
+        }
+        composable("update_user_info") {
+            UpdateUserInfoScreen(homeViewModel = homeViewModel, navController = navController)
         }
     }
 }
