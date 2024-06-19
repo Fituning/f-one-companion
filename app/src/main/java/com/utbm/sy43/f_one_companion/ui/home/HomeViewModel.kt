@@ -65,6 +65,52 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun addConstructorFav(constructorName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val user = _uiState.value.user
+            if (user != null) {
+                val updatedFavorites = user.favoriteTeams.toMutableList()
+                updatedFavorites.add(constructorName)
+                val updatedUser = user.copy(favoriteTeams = updatedFavorites)
+
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", e.toString())
+                    }
+            }
+        }
+    }
+
+    fun removeConstructorFav(constructorName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val user = _uiState.value.user
+            if (user != null) {
+                val updatedFavorites = user.favoriteTeams.toMutableList()
+                updatedFavorites.remove(constructorName)
+                val updatedUser = user.copy(favoriteTeams = updatedFavorites)
+
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", e.toString())
+                    }
+            }
+        }
+    }
+
+
+
     private fun fetchUserProfile() {
         val userId = auth.currentUser?.uid
         if (userId != null) {
@@ -90,7 +136,38 @@ class HomeViewModel : ViewModel() {
         _uiState.value = HomeUiState(user = null)
     }
 
+    fun updateUser(firstName: String, lastName: String, userName: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val currentUser = _uiState.value.user
+            if (currentUser != null) {
+                val newFirstName = if (firstName.isBlank()) currentUser.firstName else firstName
+                val newLastName = if (lastName.isBlank()) currentUser.lastName else lastName
+                val newUserName = if (userName.isBlank()) currentUser.userName else userName
 
+                val updatedUser = currentUser.copy(
+                    firstName = newFirstName,
+                    lastName = newLastName,
+                    userName = newUserName
+                )
+
+                db.collection("users").document(userId).set(updatedUser)
+                    .addOnSuccessListener {
+                        _uiState.update { currentState ->
+                            currentState.copy(user = updatedUser)
+                        }
+                        Log.d("HomeViewModel", "User profile updated successfully")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("HomeViewModel", "Error updating user profile", e)
+                    }
+            } else {
+                Log.e("HomeViewModel", "No user found in UI state")
+            }
+        } else {
+            Log.e("HomeViewModel", "No user ID found")
+        }
+    }
 
 
 

@@ -24,6 +24,10 @@ fun HomeScreen(homeViewModel: HomeViewModel){
         item {
             FavDriverListScreen(ergastUiState = ergastViewModel._uistate, homeViewModel = homeViewModel, extraData = true)
         }
+
+        item {
+            FavTeamListScreen(ergastUiState = ergastViewModel._uistate, homeViewModel = homeViewModel, extraData = true)
+        }
         item {
             TeamStandingsComponent(ergastUiState = ergastViewModel._uistate)
         }
