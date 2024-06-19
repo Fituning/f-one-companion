@@ -10,15 +10,16 @@ import com.utbm.sy43.f_one_companion.ui.components.standings.DriverStandingsComp
 import com.utbm.sy43.f_one_companion.ui.home.ErgastViewModel
 import com.utbm.sy43.f_one_companion.ui.components.standings.TeamStandingsComponent
 import com.utbm.sy43.f_one_companion.ui.home.HomeViewModel
+import com.utbm.sy43.f_one_companion.R
 
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel){
     val ergastViewModel : ErgastViewModel = viewModel()
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp),
     ) {
         item {
-            ImageComponent()
+            ImageComponent(R.drawable.motorsinside_podium_monaco_leclerc_piastri_sainz, "Monaco Podium 2024")
         }
         item {
             FavDriverListScreen(ergastUiState = ergastViewModel._uistate, homeViewModel = homeViewModel, extraData = true)
@@ -28,6 +29,10 @@ fun HomeScreen(homeViewModel: HomeViewModel){
         }
         item {
             DriverStandingsComponent(ergastUiState = ergastViewModel._uistate, listSize = 10)
+        }
+
+        item {
+            ImageComponent()
         }
     }
 }
