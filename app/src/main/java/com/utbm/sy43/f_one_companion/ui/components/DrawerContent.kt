@@ -35,7 +35,7 @@ fun DrawerContent(
                 closeDrawer()
             }
             .padding(8.dp))
-        Text(text = "User", modifier = Modifier // todo set if user is connected
+        Text(text = "User", modifier = Modifier
             .clickable {
                 navController.navigate("user_info")
                 closeDrawer()
