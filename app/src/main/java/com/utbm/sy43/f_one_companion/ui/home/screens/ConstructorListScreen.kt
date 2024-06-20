@@ -1,5 +1,6 @@
 package com.utbm.sy43.f_one_companion.ui.home.screens
 
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +30,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -53,6 +57,7 @@ import com.utbm.sy43.f_one_companion.R
 import com.utbm.sy43.f_one_companion.data.model.serializable_model.ConstructorStandings
 import com.utbm.sy43.f_one_companion.data.model.serializable_model.DriverStandings
 import com.utbm.sy43.f_one_companion.ui.components.ColorBarr
+import com.utbm.sy43.f_one_companion.ui.components.TeamSecondaryColor
 import com.utbm.sy43.f_one_companion.ui.components.standings.ErrorScreen
 import com.utbm.sy43.f_one_companion.ui.components.standings.LoadingScreen
 import com.utbm.sy43.f_one_companion.ui.home.ErgastUiState
@@ -150,7 +155,7 @@ fun FavTeamListScreen(
                         rows = GridCells.Fixed(1),
                         modifier = Modifier
                             //.padding(horizontal = 16.dp)
-                            .heightIn(max = 320.dp),
+                            .heightIn(max = 200.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
@@ -191,19 +196,22 @@ fun ConstructorCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
+                .wrapContentHeight(),
+            colors = CardDefaults.cardColors(
+                containerColor = TeamSecondaryColor(constructorStanding.constructor.constructorId),
+            )
+                //.aspectRatio(1f)
             ,
             shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         ) {
             Box {
                 Image(
-                    painter = painterResource(id = constructorNameToImageResId(constructorStanding.constructor.name)),
+                    painter = painterResource(id = constructorNameToCarImageResId(constructorStanding.constructor.name)),
                     contentDescription = " constructor image",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1f)
-                        .scale(1.3f)
-                        .padding(top = 20.dp),
+                        .padding(top = 20.dp, bottom = 4.dp),
+                        //.aspectRatio(1f),
                     contentScale = ContentScale.Crop,
                     alignment = Alignment.TopCenter
                 )
@@ -211,7 +219,7 @@ fun ConstructorCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .align(Alignment.BottomEnd)
+                        .align(Alignment.TopEnd)
                         .padding(4.dp)
                         .size(32.dp)
                         .wrapContentSize()
@@ -268,17 +276,38 @@ fun ConstructorCard(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        ColorBarr(constructorStanding.constructor.constructorId, height = 32.dp, with = 1.dp)
+                        Card(
+                            modifier = Modifier
+                                .size(28.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color.White,
+                            )
 
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            Text(
-                                text = constructorStanding.constructor.name,
-                                style = MaterialTheme.typography.labelMedium,
-                                fontSize = 14.sp,
+                            Image(
+                                painter = painterResource(id = constructorNameToImageResId(constructorStanding.constructor.name)),
+                                contentDescription = " constructor image",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(4.dp)
+                                    .aspectRatio(1f)
+                                    .background(Color.White),
+                                contentScale = ContentScale.Crop,
+                                alignment = Alignment.Center,
+
                             )
                         }
+                        Spacer(modifier = Modifier.width(4.dp))
+                        ColorBarr(constructorStanding.constructor.constructorId, height = 32.dp, with = 1.dp)
+
+
+                        Text(
+                            modifier = Modifier.widthIn(max = 100.dp),
+                            text = constructorStanding.constructor.name,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontSize = 12.sp,
+                        )
                     }
                     Image(
                         painter = painterResource(id = teamNationalityToFlagResId(constructorStanding.constructor.nationality)),
@@ -340,17 +369,33 @@ fun ConstructorCard(
 
 fun constructorNameToImageResId(name: String): Int {
     return when (name) {
-        "Alpine F1 Team" -> R.drawable.alpine
-        "Aston Martin" -> R.drawable.aston_martin
-        "Ferrai" -> R.drawable.ferrari
-        "Haas F1 Team" -> R.drawable.haas
-        "Sauber" -> R.drawable.kick_sauber
-        "McLaren" -> R.drawable.mclaren
-        "Mercedes" -> R.drawable.mercedes
-        "RB F1 Team" -> R.drawable.rb
-        "Red Bull" -> R.drawable.redbull
-        "Williams" -> R.drawable.williams
-        else -> R.drawable.mclaren
+        "Alpine F1 Team" -> R.drawable.logo_alpine_logo
+        "Aston Martin" -> R.drawable.logo_aston_martin_logo
+        "Ferrari" -> R.drawable.logo_ferrari_logo
+        "Haas F1 Team" -> R.drawable.logo_haas_logo
+        "Sauber" -> R.drawable.logo_kick_sauber_logo
+        "McLaren" -> R.drawable.logo_mclaren_logo
+        "Mercedes" -> R.drawable.logo_mercedes_logo
+        "RB F1 Team" -> R.drawable.logo_rb_logo
+        "Red Bull" -> R.drawable.logo_red_bull_racing_logo
+        "Williams" -> R.drawable.logo_williams_logo
+        else -> R.drawable.logo_ferrari_logo
+    }
+}
+
+fun constructorNameToCarImageResId(name: String): Int {
+    return when (name) {
+        "Alpine F1 Team" -> R.drawable.car_alpine
+        "Aston Martin" -> R.drawable.car_aston_martin
+        "Ferrari" -> R.drawable.car_ferrari
+        "Haas F1 Team" -> R.drawable.car_haas
+        "Sauber" -> R.drawable.car_kick_sauber
+        "McLaren" -> R.drawable.car_mclaren
+        "Mercedes" -> R.drawable.car_mercedes
+        "RB F1 Team" -> R.drawable.car_rb
+        "Red Bull" -> R.drawable.car_red_bull_racing
+        "Williams" -> R.drawable.car_williams
+        else -> R.drawable.car_ferrari
     }
 }
 

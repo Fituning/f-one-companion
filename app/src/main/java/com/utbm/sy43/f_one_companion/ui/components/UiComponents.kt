@@ -135,3 +135,20 @@ fun TeamColor(teamId : String): Color
         else -> FerrariColor
     }
 }
+
+fun TeamSecondaryColor(teamId : String): Color
+{
+    return when(teamId){
+        "red_bull" -> RedBullColor_secondary
+        "ferrari" -> FerrariColor_secondary
+        "mclaren" -> McLarenColor_secondary
+        "mercedes" -> MercedesColor_secondary
+        "aston_martin" -> AstonMartinColor_secondary
+        "rb" -> RBColor_secondary
+        "haas" -> HaasColor_secondary
+        "alpine" -> AlpineColor_secondary
+        "williams" -> WilliamsColor_secondary
+        "sauber" -> KickSauberColor_secondary
+        else -> FerrariColor_secondary
+    }
+}

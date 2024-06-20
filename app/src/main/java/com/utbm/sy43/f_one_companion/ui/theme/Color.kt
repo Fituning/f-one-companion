@@ -63,6 +63,19 @@ val KickSauberColor = Color(0xFF52E252)  // Stake F1 (Kick Sauber)
 val HaasColor = Color(0xFFB6BABD)  // Haas F1 Team
 
 
+// teams secondary color
+
+val MercedesColor_secondary = Color(0xFF2D6564)  // Mercedes-AMG Petronas
+val RedBullColor_secondary = Color(0xFF304162)  // Red Bull Racing
+val FerrariColor_secondary = Color(0xFF642739)  // Scuderia Ferrari
+val McLarenColor_secondary = Color(0xFF694733)  // McLaren F1 Team
+val AlpineColor_secondary = Color(0xFF2A4B66)  // Alpine F1 Team
+val RBColor_secondary = Color(0xFF3C4B5C)  // Visa Cash App RB
+val AstonMartinColor_secondary = Color(0xFF224047)  // Aston Martin Cognizant
+val WilliamsColor_secondary = Color(0xFF325A6D)  // Williams Racing
+val KickSauberColor_secondary = Color(0xFF21612B)  // Stake F1 (Kick Sauber)
+val HaasColor_secondary = Color(0xFF54565F)  // Haas F1 Team
+
 
 
 
