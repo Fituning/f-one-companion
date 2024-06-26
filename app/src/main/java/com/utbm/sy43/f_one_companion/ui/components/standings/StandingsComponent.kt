@@ -177,7 +177,7 @@ fun TeamLineInfo(
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
-                    .width(48.dp)
+                    .width(56.dp)
                     .padding(end = 12.dp)
             )
         }
@@ -244,7 +244,7 @@ fun DriverLineInfo(
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
-                    .width(48.dp)
+                    .width(56.dp)
                     .padding(end = 12.dp)
             )
         }
